@@ -111,6 +111,14 @@ global:
     # clients and servers and only accept HTTPS connections.
     httpsOnly: true
 
+  # [Enterprise Only] consulNamespacesEnabled indicates that you are running
+  # Consul v1.7+ with a valid Consul Enterprise license and would like to make
+  # use of configuration beyond registering everything into the `default` Consul
+  # namespace. Requires consul-k8s v0.12+.
+  # Additional configuration options are found in the `consulNamespaces` section
+  # of both the catalog sync and connect injector.
+  consulNamespacesEnabled: false
+
 # Server, when enabled, configures a server cluster to run. This should
 # be disabled if you plan on connecting to a Consul cluster external to
 # the Kube cluster.
@@ -416,6 +424,28 @@ syncCatalog:
   # changes and sync to Consul. If this is not set then it will default
   # to all namespaces.
   k8sSourceNamespace: null
+
+  # [Enterprise Only] These settings manage the catalog sync's interaction with
+  # Consul namespaces (requires consul-ent v1.7+ and consul-k8s v0.12+).
+  # Also, `global.consulNamespacesEnabled` must be true.
+  consulNamespaces:
+    # consulNamespaceName is the name of the Consul namespace to register all
+    # k8s services into. If the Consul namespace does not already exist,
+    # it will be created. This will be ignored if `mirrorK8S` is true.
+    consulDestinationNamespace: "default"
+
+    # mirrorK8S causes k8s services to be registered into a Consul namespace
+    # of the same name as their k8s namespace, optionally prefixed if
+    # `mirroringPrefix` is set below. If the Consul namespace does not
+    # already exist, it will be created. Turning this on overrides the
+    # `consulNamespaceName` setting.
+    mirrorK8S: false
+
+    # If `mirrorK8S` is set to true, `mirroringPrefix` allows each Consul namespace
+    # to be given a prefix. For example, if `mirroringPrefix` is set to "k8s-", a
+    # service in the k8s `staging` namespace will be registered into the
+    # `k8s-staging` Consul namespace.
+    mirroringPrefix: ""
 
   # addK8SNamespaceSuffix appends Kubernetes namespace suffix to
   # each service name synced to Consul, separated by a dash.
