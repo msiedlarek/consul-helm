@@ -125,10 +125,10 @@ spec:
                 {{- end}}
                 {{- if .Values.global.consulNamespacesEnabled }}
                 -enable-namespaces=true \
-                {{- if .Values.syncCatalog.consulNamespaces.consulNamespaceName }}
-                -consul-namespace={{ .Values.syncCatalog.consulNamespaces.consulNamespaceName }} \
+                {{- if .Values.syncCatalog.consulNamespaces.consulDestinationNamespace }}
+                -consul-namespace={{ .Values.syncCatalog.consulNamespaces.consulDestinationNamespace }} \
                 {{- end }}
-                {{- if .Values.syncCatalog.consulNamespaces.mirrorK8s }}
+                {{- if .Values.syncCatalog.consulNamespaces.mirrorK8S }}
                 -enable-namespace-mirroring=true \
                 -mirroring-prefix={{ .Values.syncCatalog.consulNamespaces.mirroringPrefix }} \
                 {{- end }}
