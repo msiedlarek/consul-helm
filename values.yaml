@@ -444,7 +444,7 @@ syncCatalog:
   k8sDenyNamespaces: ["kube-system", "kube-public"]
 
   # [DEPRECATED] Use k8sAllowNamespaces and k8sDenyNamespaces instead.
-  # sourceNamespace is the Kubernetes namespace to watch for service
+  # k8sSourceNamespace is the Kubernetes namespace to watch for service
   # changes and sync to Consul. If this is not set then it will default
   # to all namespaces.
   k8sSourceNamespace: null
@@ -463,6 +463,7 @@ syncCatalog:
     # `mirroringPrefix` is set below. If the Consul namespace does not
     # already exist, it will be created. Turning this on overrides the
     # `consulDestinationNamespace` setting.
+    # `addK8SNamespaceSuffix` may no longer be needed if enabling this option.
     mirrorK8S: false
 
     # If `mirrorK8S` is set to true, `mirroringPrefix` allows each Consul namespace

@@ -130,7 +130,9 @@ spec:
                 {{- end }}
                 {{- if .Values.syncCatalog.consulNamespaces.mirrorK8S }}
                 -enable-namespace-mirroring=true \
+                {{- if .Values.syncCatalog.consulNamespaces.mirroringPrefix }}
                 -mirroring-prefix={{ .Values.syncCatalog.consulNamespaces.mirroringPrefix }} \
+                {{- end }}
                 {{- end }}
                 {{- end }}
           livenessProbe:
